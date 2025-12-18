@@ -1,6 +1,7 @@
 import { AccessCard } from "./components/AccessCard";
 import { AppBar } from "./components/AppBar";
 import { useTheme } from "./hooks/useTheme";
+import { PacManBackground } from "./components/PacManBackground";
 import {
   Mail,
   Shield,
@@ -71,7 +72,7 @@ const accessLinks: LinkItem[] = [
   },
   {
     id: "7",
-    label: "server",
+    label: "Rede",
     icon: LogIn,
     href: "https://10.10.0.1/login",
     colorFrom: "#14b8a6",
@@ -83,39 +84,41 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--bg)",
-        color: "var(--text)",
-      }}
-    >
-      {/* APP BAR */}
-      <AppBar theme={theme} onToggleTheme={toggleTheme} />
+    <>
+      {/* BACKGROUND FIXO */}
+      <PacManBackground />
 
-      {/* CONTEÚDO */}
+      {/* APP BAR (TOPO) */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 20,
+        }}
+      >
+        <AppBar theme={theme} onToggleTheme={toggleTheme} />
+      </div>
+
+      {/* CARDS EM OVERLAY */}
       <main
-  style={{
-    paddingTop: 120,
-    paddingBottom: 60,
-    paddingLeft: 24,
-    paddingRight: 24,
-    display: "flex",
-    justifyContent: "center",
-  }}
->
-
+        style={{
+          position: "fixed",
+          top: 72, // altura da AppBar
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 15,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingLeft: 24,
+          paddingRight: 24,
+          pointerEvents: "auto",
+        }}
+      >
         <div style={{ width: "100%", maxWidth: 1300 }}>
-          <h1
-            style={{
-              fontSize: 28,
-              fontWeight: 700,
-              marginBottom: 32,
-            }}
-          >
-            
-          </h1>
-
           <div
             style={{
               display: "grid",
@@ -137,6 +140,6 @@ export default function App() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
