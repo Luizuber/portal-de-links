@@ -1,108 +1,104 @@
 import type { LucideIcon } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 
 interface AccessCardProps {
   label: string;
+  description: string;
   icon: LucideIcon;
   href: string;
-  colorFrom: string;
-  colorTo: string;
+  colorFrom: string; // Kept for interface compatibility but styles use theme vars
+  colorTo: string;   // Kept for interface compatibility
   delay?: number;
 }
 
 export function AccessCard({
   label,
+  description,
   icon: Icon,
   href,
-  colorFrom,
-  colorTo,
-  delay = 0,
 }: AccessCardProps) {
   return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ scale: 1.06, y: -6 }}
-      whileTap={{ scale: 0.97 }}
-      style={{ textDecoration: "none", width: 260 }}
+    <div
+      style={{
+        background: "var(--card-bg)",
+        borderRadius: 16,
+        padding: 24,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        height: "100%",
+        minHeight: 280,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-4px)";
+        e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.12)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.08)";
+      }}
     >
-      <div
+      {/* Icon */}
+      <div style={{ color: "var(--primary)", marginTop: 8 }}>
+        <Icon size={48} strokeWidth={1.5} />
+      </div>
+
+      {/* Title */}
+      <h3
         style={{
-          position: "relative",
-          height: 260,
-          borderRadius: 28,
-          padding: 24,
-          background: "var(--surface)",
-          backdropFilter: "blur(14px)",
-          WebkitBackdropFilter: "blur(14px)",
-          boxShadow:
-            "0 20px 40px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.08)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 20,
-          overflow: "hidden",
-          color: "var(--text)",
+          fontSize: 18,
+          fontWeight: 600,
+          margin: "16px 0 0 0",
+          color: "var(--text-primary)",
         }}
       >
-        {/* Glow */}
-        <div
-          style={{
-            position: "absolute",
-            inset: -40,
-            background: `radial-gradient(circle at top, ${colorFrom}55, transparent 60%)`,
-          }}
-        />
+        {label}
+      </h3>
 
-        {/* ÍCONE */}
-        <div
-          style={{
-            width: 92,
-            height: 92,
-            borderRadius: 26,
-            background: `linear-gradient(135deg, ${colorFrom}, ${colorTo})`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-            boxShadow: `0 14px 34px ${colorFrom}66`,
-            zIndex: 1,
-          }}
-        >
-          <Icon size={44} strokeWidth={2.2} />
-        </div>
+      {/* Description */}
+      <p
+        style={{
+          fontSize: 14,
+          color: "var(--text-secondary)",
+          margin: "6px 0 24px 0",
+          lineHeight: 1.5,
+          flexGrow: 1,
+        }}
+      >
+        {description}
+      </p>
 
-        {/* TEXTO */}
-        <div
-          style={{
-            fontSize: 15.5,
-            fontWeight: 600,
-            letterSpacing: "-0.015em",
-            textAlign: "center",
-            lineHeight: 1.25,
-            zIndex: 1,
-          }}
-        >
-          {label}
-        </div>
-
-        {/* BARRA */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 6,
-            background: `linear-gradient(90deg, ${colorFrom}, ${colorTo})`,
-          }}
-        />
-      </div>
-    </motion.a>
+      {/* Button */}
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "10px 24px",
+          borderRadius: 24,
+          background: "var(--primary)",
+          color: "#fff",
+          textDecoration: "none",
+          fontSize: 14,
+          fontWeight: 600,
+          transition: "background 0.2s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "var(--primary-hover)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "var(--primary)";
+        }}
+      >
+        Acessar
+        <ChevronRight size={16} />
+      </a>
+    </div>
   );
 }

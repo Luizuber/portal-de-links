@@ -1,4 +1,4 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Search } from "lucide-react";
 
 interface AppBarProps {
   theme: "light" | "dark";
@@ -9,126 +9,95 @@ export function AppBar({ theme, onToggleTheme }: AppBarProps) {
   return (
     <header
       style={{
-        height: 72,
+        height: 140,
         display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 24px",
+        flexDirection: "column",
+        background: "var(--primary)",
+        color: "#fff",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
         position: "relative",
-
-        background:
-          theme === "dark"
-            ? "linear-gradient(180deg, rgba(15,23,42,0.85), rgba(15,23,42,0.65))"
-            : "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65))",
-
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-
-        borderBottom:
-          theme === "dark"
-            ? "1px solid rgba(255,255,255,0.08)"
-            : "1px solid rgba(0,0,0,0.08)",
-
-        boxShadow:
-          theme === "dark"
-            ? "0 10px 30px rgba(0,0,0,0.35)"
-            : "0 10px 30px rgba(0,0,0,0.08)",
+        zIndex: 100,
       }}
     >
-      {/* ESQUERDA — LOGO + TEXTO */}
-      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-        {/* LOGO */}
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 10,
-            background: "linear-gradient(135deg, #22d3ee, #3b82f6)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-            fontWeight: 800,
-            boxShadow: "0 0 20px rgba(34,211,238,0.7)",
-            fontSize: 14,
-          }}
-        >
-          ⚡
-        </div>
-
-        {/* TEXTO PIKA */}
-        <span
-          style={{
-            fontSize: 20,
-            fontWeight: 800,
-            letterSpacing: 0.5,
-            textTransform: "uppercase",
-            background:
-              "linear-gradient(90deg, #22d3ee, #3b82f6, #a855f7)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            textShadow:
-              theme === "dark"
-                ? "0 0 12px rgba(59,130,246,0.6)"
-                : "none",
-          }}
-        >
-          links fodas
-        </span>
-      </div>
-
-      {/* DIREITA — TEMA */}
-      <button
-        onClick={onToggleTheme}
+      {/* Row 1: Logo and Theme Toggle */}
+      <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 8,
-          padding: "8px 14px",
-          borderRadius: 999,
-          border: "none",
-          cursor: "pointer",
-
-          background:
-            theme === "dark"
-              ? "rgba(255,255,255,0.08)"
-              : "rgba(0,0,0,0.06)",
-
-          color: "inherit",
-          fontSize: 14,
-          fontWeight: 500,
-          transition: "all 0.25s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background =
-            theme === "dark"
-              ? "rgba(255,255,255,0.15)"
-              : "rgba(0,0,0,0.12)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background =
-            theme === "dark"
-              ? "rgba(255,255,255,0.08)"
-              : "rgba(0,0,0,0.06)";
+          justifyContent: "space-between",
+          padding: "20px 40px",
+          height: 80,
         }}
       >
-        {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-        {theme === "dark" ? "Claro" : "Escuro"}
-      </button>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <span style={{ fontSize: 32, fontWeight: 900, color: "#fff" }}>Dequech</span>
+          <span style={{ fontSize: 24, fontWeight: 600, color: "#facc15" }}>Portal de Links</span>
+        </div>
 
-      {/* LINHA NEON */}
+        <button
+          onClick={onToggleTheme}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "8px 16px",
+            borderRadius: 20,
+            border: "1px solid rgba(255,255,255,0.3)",
+            background: "rgba(0,0,0,0.2)",
+            color: "#fff",
+            fontSize: 13,
+            fontWeight: 500,
+            transition: "all 0.2s ease",
+          }}
+        >
+          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          Modo {theme === "dark" ? "Claro" : "Escuro"}
+        </button>
+      </div>
+
+      {/* Row 2: Search Bar */}
       <div
         style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 2,
-          background:
-            "linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #a855f7, transparent)",
-          opacity: 0.7,
+          display: "flex",
+          justifyContent: "center",
+          padding: "0 40px 20px 40px",
         }}
-      />
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: 600,
+          }}
+        >
+          <Search
+            size={18}
+            style={{
+              position: "absolute",
+              left: 20,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "#94a3b8",
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Buscar por nome ou descrição..."
+            style={{
+              width: "100%",
+              height: 44,
+              padding: "0 20px 0 52px",
+              borderRadius: 40,
+              border: "none",
+              background: "#fff",
+              fontSize: 15,
+              color: "#2c3e50",
+              outline: "none",
+              boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+            }}
+          />
+        </div>
+      </div>
     </header>
   );
 }
