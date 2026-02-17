@@ -1,7 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --primary: #2f5f8f;
   --primary-hover: #24496e;
-  --bg: #f1f3f6;
+  --bg: #F8EEEC;
   --card-bg: #ffffff;
   --text-primary: #2c3e50;
   --text-secondary: #6b7280;

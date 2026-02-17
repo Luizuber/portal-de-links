@@ -3,9 +3,11 @@ import { Moon, Sun, Search } from "lucide-react";
 interface AppBarProps {
   theme: "light" | "dark";
   onToggleTheme: () => void;
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
 }
 
-export function AppBar({ theme, onToggleTheme }: AppBarProps) {
+export function AppBar({ theme, onToggleTheme, searchTerm, onSearchChange }: AppBarProps) {
   return (
     <header
       style={{
@@ -81,6 +83,8 @@ export function AppBar({ theme, onToggleTheme }: AppBarProps) {
             }}
           />
           <input
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
             type="text"
             placeholder="Buscar por nome ou descrição..."
             style={{
